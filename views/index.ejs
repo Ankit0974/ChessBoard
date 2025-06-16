@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chessboard</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background-color: #1e1e1e; /* Dark background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: sans-serif; /* Optional: for better text rendering if any */
+    }
+
+    .chessboard {
+      width: 400px; /* Increased size for better visibility, adjust as needed */
+      height: 400px; /* Increased size for better visibility, adjust as needed */
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      grid-template-rows: repeat(8, 1fr);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* Stronger shadow for depth */
+      border: 5px solid #8B4513; /* Optional: A border to resemble a board frame */
+    }
+    .piece {
+  font-size: 2.2em;      /* Adjust size as needed to fit the square */
+  pointer-events: all;   /* Allows drag events */
+  user-select: none;     /* Prevents text selection while dragging */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+    .square {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.8em; /* Optional: if you add text/coordinates later */
+    }
+
+    /* Colors for the chessboard squares */
+    .light {
+      background-color: #f0d9b5; /* Light square color (e.g., light wood) */
+    }
+
+    /* .piece.flipped {
+  transform: rotate(180deg);
+} */
+   
+  .chessboard.flipped-board {
+  transform: rotate(180deg);
+}
+.chessboard.flipped-board .piece {
+  transform: rotate(180deg);
+}
+
+    .dark {
+      background-color: #b58863; /* Dark square color (e.g., dark wood) */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="chessboard" id="chessboard">
+      </div>
+  </div>
+
+  <script src="https://cdn.socket.io/4.8.1/socket.io.min.js" integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js" integrity="sha512-xRllwz2gdZciIB+AkEbeq+gVhX8VB8XsfqeFbUh+SzHlN96dEduwtTuVuc2u9EROlmW9+yhRlxjif66ORpsgVA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/javascripts/chessgame.js"></script>
+  <script>
+    
+    const chessboard = document.getElementById('chessboard');
+    const boardSize = 8;
+
+    for (let row = 0; row < boardSize; row++) {
+      for (let col = 0; col < boardSize; col++) {
+        const square = document.createElement('div');
+        square.classList.add('square');
+
+        // Determine if the square is light or dark
+        if ((row + col) % 2 === 0) {
+          square.classList.add('light');
+        } else {
+          square.classList.add('dark');
+        }
+        chessboard.appendChild(square);
+      }
+    }
+  </script>
+</body>
+</html>
